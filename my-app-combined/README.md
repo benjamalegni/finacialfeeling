@@ -1,117 +1,183 @@
-# Financial Feeling - Combined Project
+# Financial Feeling - Combined App
 
-Este proyecto combina el frontend moderno de `my-app-v0` con el backend funcional de `my-app`, creando una aplicación completa con autenticación y diseño profesional.
+Una aplicación web moderna para análisis de activos financieros con IA, construida con Next.js, Supabase y Tailwind CSS.
 
-## 🎯 Características
+## 🚀 Características
 
-### **Frontend (de my-app-v0):**
-- ✅ **Diseño moderno y oscuro** con tema personalizado
-- ✅ **Componentes shadcn/ui** actualizados
-- ✅ **Interfaz responsiva** y profesional
-- ✅ **Sidebar minimalista** con navegación
-- ✅ **Cards interactivas** para casos de uso
-- ✅ **Formularios elegantes** con validación
+- **Análisis de IA**: Análisis de sentimiento de activos financieros
+- **Portafolio Personal**: Gestión de activos seleccionados
+- **Autenticación**: Sistema de login/signup con Supabase
+- **Interfaz Moderna**: Diseño elegante con gradientes animados
+- **Responsive**: Funciona en todos los dispositivos
+- **Tiempo Real**: Actualizaciones automáticas del análisis
 
-### **Backend (de my-app):**
-- ✅ **Autenticación Supabase** completa
-- ✅ **Login/Signup** con email y GitHub OAuth
-- ✅ **Middleware de protección** de rutas
-- ✅ **Gestión de sesiones** automática
-- ✅ **Base de datos** configurada
-- ✅ **Variables de entorno** configuradas
+## 🛠️ Tecnologías
 
-## 🚀 Configuración Rápida
+- **Frontend**: Next.js 15, React 19, TypeScript
+- **Styling**: Tailwind CSS, shadcn/ui
+- **Backend**: Supabase (Auth, Database)
+- **Deployment**: GitHub Pages
+- **Análisis**: n8n (opcional), Mock Data
 
-### 1. Instalar Dependencias
+## 📦 Instalación
+
 ```bash
+# Clonar el repositorio
+git clone https://github.com/tu-usuario/financialfeeling.git
+cd financialfeeling
+
+# Instalar dependencias
 npm install
-```
 
-### 2. Variables de Entorno
-El archivo `.env.local` ya está configurado con:
-- Supabase URL y claves
-- Configuración de Stripe
-- Variables de entorno necesarias
+# Configurar variables de entorno
+cp .env.example .env.local
+# Editar .env.local con tus credenciales de Supabase
 
-### 3. Ejecutar el Proyecto
-```bash
+# Ejecutar en desarrollo
 npm run dev
 ```
+
+## 🔧 Configuración
+
+### Variables de Entorno
+
+Crea un archivo `.env.local` con:
+
+```bash
+NEXT_PUBLIC_SUPABASE_URL=tu_url_de_supabase
+NEXT_PUBLIC_SUPABASE_ANON_KEY=tu_anon_key_de_supabase
+SUPABASE_SERVICE_ROLE_KEY=tu_service_role_key_de_supabase
+```
+
+### Supabase Setup
+
+1. Crea un proyecto en [supabase.com](https://supabase.com)
+2. Ejecuta las migraciones en `supabase_migrations/`
+3. Configura las políticas RLS
+4. Configura autenticación (GitHub OAuth opcional)
+
+## 🚀 Despliegue en GitHub Pages
+
+### Configuración Automática
+
+El proyecto está configurado para desplegar automáticamente en GitHub Pages:
+
+1. **Habilitar GitHub Pages**:
+   - Ve a Settings > Pages
+   - Source: GitHub Actions
+
+2. **Configurar Secrets** (opcional):
+   - Ve a Settings > Secrets and variables > Actions
+   - Agrega las variables de entorno si necesitas funcionalidad completa
+
+3. **Push a main**:
+   - Cada push a la rama `main` desplegará automáticamente
+
+### Despliegue Manual
+
+```bash
+# Construir el proyecto
+npm run build
+
+# Los archivos estáticos se generan en out/
+# Subir a GitHub Pages
+```
+
+### URL de Producción
+
+Una vez desplegado, estará disponible en:
+`https://[tu-usuario].github.io/[nombre-del-repositorio]/`
 
 ## 📁 Estructura del Proyecto
 
 ```
 my-app-combined/
-├── app/
-│   ├── page.tsx              # Página principal con diseño moderno
-│   ├── login/page.tsx        # Página de login
-│   ├── signup/page.tsx       # Página de registro
-│   ├── dashboard/page.tsx    # Panel principal
-│   ├── auth/callback/        # Callback de autenticación
-│   └── globals.css           # Estilos globales
-├── components/ui/            # Componentes shadcn/ui
-├── lib/
-│   ├── supabaseClient.ts     # Cliente Supabase
-│   └── database.types.ts     # Tipos de base de datos
-├── middleware.ts             # Middleware de autenticación
-├── supabase_migrations/      # Migraciones de base de datos
-└── package.json              # Dependencias actualizadas
+├── app/                    # App Router de Next.js
+│   ├── dashboard/         # Página del dashboard
+│   ├── login/            # Página de login
+│   ├── signup/           # Página de registro
+│   └── page.tsx          # Página principal
+├── components/            # Componentes reutilizables
+│   ├── shared-sidebar.tsx
+│   ├── dashboard-content.tsx
+│   └── ui/               # Componentes de shadcn/ui
+├── lib/                   # Utilidades y configuraciones
+│   ├── supabaseClient.ts
+│   ├── stockAnalysis.ts
+│   └── database.types.ts
+├── .github/workflows/     # GitHub Actions
+└── supabase_migrations/   # Migraciones de base de datos
 ```
 
-## 🎨 Diseño y UX
+## 🎯 Funcionalidades Principales
 
-### **Tema Oscuro Personalizado:**
-- Fondo negro profundo sin tonos azules
-- Colores neutros para mejor legibilidad
-- Contraste optimizado para accesibilidad
-- Componentes modernos con shadcn/ui
+### 1. Análisis de Activos
+- Selección de múltiples activos
+- Análisis de sentimiento con IA
+- Recomendaciones automáticas
+- Visualización de resultados
 
-### **Página Principal:**
-- **Sidebar minimalista** con navegación
-- **Barra de búsqueda** interactiva
-- **Cards de casos de uso** con hover effects
-- **Menú de usuario** con dropdown
-- **Botones de autenticación** prominentes
+### 2. Gestión de Portafolio
+- Agregar/eliminar activos
+- Persistencia en base de datos
+- Interfaz intuitiva
+- Sincronización automática
 
-## 🔐 Flujo de Autenticación
+### 3. Autenticación
+- Login/Signup con Supabase
+- Sesiones persistentes
+- Protección de rutas
+- Perfiles de usuario
 
-1. **Usuario visita `/`** → redirigido a `/login` si no autenticado
-2. **Login exitoso** → redirigido a `/dashboard`
-3. **Rutas protegidas** verifican autenticación automáticamente
-4. **Sesión gestionada** por Supabase SSR
+### 4. Interfaz de Usuario
+- Diseño moderno y responsive
+- Gradientes animados
+- Componentes interactivos
+- Navegación fluida
 
-## 📱 Páginas Implementadas
+## 🔄 Flujo de Trabajo
 
-- ✅ **`/`** - Página principal con diseño moderno
-- ✅ **`/login`** - Autenticación con email/GitHub
-- ✅ **`/signup`** - Registro de usuarios
-- ✅ **`/dashboard`** - Panel principal protegido
-- ✅ **`/auth/callback`** - Callback de OAuth
+1. **Selección de Activos**: Usuario selecciona activos en el portafolio
+2. **Análisis**: Presiona "RUN" para ejecutar análisis de IA
+3. **Resultados**: Visualiza sentimiento, confianza y recomendaciones
+4. **Gestión**: Agrega o elimina activos según sea necesario
 
-## 🛠 Tecnologías Utilizadas
+## 🐛 Troubleshooting
 
-- **Next.js 15** - Framework de React
-- **Supabase** - Backend y autenticación
-- **shadcn/ui** - Componentes de UI
-- **Tailwind CSS** - Estilos y diseño
-- **TypeScript** - Tipado estático
-- **Lucide React** - Iconos
+### Problemas Comunes
 
-## 🔄 Próximos Pasos
+1. **Build falla**:
+   - Verifica que todas las dependencias estén instaladas
+   - Revisa los logs del workflow en GitHub Actions
 
-1. **Agregar más páginas** (IA Analysis, Pricing, Select Assets)
-2. **Implementar funcionalidades** de base de datos
-3. **Mejorar el dashboard** con datos reales
-4. **Agregar más proveedores** de autenticación
-5. **Optimizar rendimiento** y SEO
+2. **Autenticación no funciona**:
+   - Verifica las variables de entorno
+   - Asegúrate de que Supabase esté configurado correctamente
 
-## 🎯 Estado Actual
+3. **Análisis no funciona**:
+   - El análisis usa datos mock por defecto
+   - Para análisis real, configura n8n
 
-- ✅ **Proyecto combinado** exitosamente
-- ✅ **Autenticación funcional** con Supabase
-- ✅ **Diseño moderno** implementado
-- ✅ **Middleware configurado** correctamente
-- ✅ **Variables de entorno** configuradas
-- ✅ **Dependencias actualizadas** a las últimas versiones
+### Logs de Despliegue
 
-El proyecto está listo para desarrollo y expansión con todas las funcionalidades básicas implementadas. 
+Para ver los logs del despliegue:
+1. Ve a tu repositorio en GitHub
+2. Ve a Actions
+3. Selecciona el workflow "Deploy to GitHub Pages"
+4. Revisa los logs del job "build" y "deploy"
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT.
+
+## 🤝 Contribuir
+
+1. Fork el proyecto
+2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
+
+## 📞 Soporte
+
+Para soporte, abre un issue en GitHub o contacta al equipo de desarrollo.

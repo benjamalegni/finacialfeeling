@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState } from 'react'
+import { analyzeStocks } from '@/lib/stockAnalysis'
 
 interface SharedSidebarProps {
   selectedAssets?: string[];
@@ -20,43 +21,27 @@ export default function SharedSidebar({ selectedAssets = [], onAnalysisComplete 
     try {
       console.log('Iniciando análisis de acciones...', selectedAssets);
       
-      const response = await fetch('/api/analyze-stocks', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          stocks: selectedAssets
-        })
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log('Análisis completado:', data);
-        
-        // Llamar al callback para actualizar el dashboard
-        if (onAnalysisComplete) {
-          onAnalysisComplete(data);
-        }
-        
-        // Mostrar resultados más detallados
-        let message = '✅ Análisis de acciones completado!\n\n';
-        if (data.data && data.data.stocks) {
-          data.data.stocks.forEach((stock: any) => {
-            message += `${stock.symbol}: ${stock.analysis.sentiment} (${stock.analysis.confidence}% confianza)\n`;
-            message += `Recomendación: ${stock.analysis.recommendation}\n\n`;
-          });
-        }
-        
-        alert(message);
-      } else {
-        const errorData = await response.json();
-        console.error('Error en el análisis:', errorData);
-        alert(`❌ Error al realizar el análisis: ${errorData.error || response.statusText}`);
+      const data = await analyzeStocks(selectedAssets);
+      console.log('Análisis completado:', data);
+      
+      // Llamar al callback para actualizar el dashboard
+      if (onAnalysisComplete) {
+        onAnalysisComplete(data);
       }
+      
+      // Mostrar resultados más detallados
+      let message = '✅ Análisis de acciones completado!\n\n';
+      if (data.stocks) {
+        data.stocks.forEach((stock: any) => {
+          message += `${stock.symbol}: ${stock.analysis.sentiment} (${stock.analysis.confidence}% confianza)\n`;
+          message += `Recomendación: ${stock.analysis.recommendation}\n\n`;
+        });
+      }
+      
+      alert(message);
     } catch (error) {
-      console.error('Error de conexión:', error);
-      alert('❌ Error de conexión con el servidor n8n');
+      console.error('Error en el análisis:', error);
+      alert('❌ Error al realizar el análisis');
     } finally {
       setIsLoading(false);
     }
